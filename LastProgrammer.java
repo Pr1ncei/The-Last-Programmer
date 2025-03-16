@@ -10,49 +10,78 @@ import java.util.Scanner;
  * @author: Prince Pamintuan
  */
 
-/*
- * Suggestions: Add Type Effect to the Game 
- */
-
-
 public class LastProgrammer{
 
     private static final Scanner input = new Scanner(System.in);
-    private static String option = "";
 
     public static void main(String[] args){
         displayMenu();
-        
+        askUserToStart();
+    }
+
+    private static void askUserToStart(){
         while (true) {
             System.out.print("Do you want to start the game? (Y/N) ");
-            option = input.nextLine().strip();
+            String option = input.nextLine().strip().toUpperCase();
 
-            if (option.equalsIgnoreCase("Y") || option.equalsIgnoreCase("YES")) {
+            if (option.equals("Y") || option.equals("YES")) {
                 startGame();
                 break;
-            } else if (option.equalsIgnoreCase("N") || option.equalsIgnoreCase("NO")) {
+            } 
+            
+            if (option.equals("N") || option.equals("NO")) {
                 System.out.println("Okie dokie Goodbye!");
                 break;
-            } else {
-                System.out.println("Invalid Answer. Please try again.");
-            }
+            } 
+            
+            System.out.println("Invalid Answer. Please try again.");
+            
         }
     }
+
 
     /*
      * Displays the intro of the game and also the setup
      */
     private static void displayMenu(){
-        System.out.println(" THE LAST PROGRAMMER ");
-        // Design this later 
+        typingEffect("====================================", 20);
+        typingEffect("        THE LAST PROGRAMMER        ", 50);
+        typingEffect("====================================", 20);
+
     }
 
     /*
      * Starts the game and presents the player with sets of choices 
      */
     private static void startGame(){
-        System.out.println("The game has started.");
+        loadingEffect("Loading game", 5);
 
         // Game Logic and Setup Here 
     }
+
+    private static void typingEffect(String text, int delay){
+        for (char c: text.toCharArray()){
+            System.out.print(c);
+            try{
+                Thread.sleep(delay);
+            } catch (InterruptedException e){
+                Thread.currentThread().interrupt();
+            }
+        }
+        System.out.println();
+    }
+
+    private static void loadingEffect(String text, int dotCount){
+        System.out.print(text);
+        for(int i = 0; i < dotCount; i++){
+            try{
+                Thread.sleep(500);
+                System.out.print(".");
+            } catch (InterruptedException e){
+                Thread.currentThread().interrupt();
+            }
+        }
+
+    }
+
 }
